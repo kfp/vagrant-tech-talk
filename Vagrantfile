@@ -47,7 +47,7 @@ Vagrant.configure(2) do |config|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
     
-    vb.name = "Red Hat Tech Talk Box"
+    vb.name = "F22 Red Hat Tech Talk Box"
     vb.cpus = 4
   
     # Customize the amount of memory on the VM:
@@ -68,7 +68,15 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-config.vm.provision "shell", inline: <<-SHELL
-    sudo dnf -y install puppet
-  SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+      sudo dnf -y install puppet
+      sudo puppet apply /vagrant/puppet/manifests/
+    SHELL
+
+# NOTE: the clean way is this but this part of vagrant 1.7.2 is not comptable with puppet 4.x
+#  config.vm.provision :puppet do |puppet|
+#    puppet.manifests_path = "puppet/manifests"
+#    puppet.manifest_file = "default.pp"
+    #puppet.module_path = "puppet/modules"
+#  end
 end
