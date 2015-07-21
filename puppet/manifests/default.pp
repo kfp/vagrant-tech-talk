@@ -6,6 +6,7 @@ $project_name = "tech-talk"
     include basePackageInstall
     include gnomeInstall
     include afterInstall
+    include ssh
 
 class packageUpdate 
 {
@@ -50,4 +51,12 @@ class afterInstall
       timeout => 1800,
       user => root
   }
+}
+
+class ssh
+{
+   service { "ssh":        
+      ensure => "running",
+      enable => "true"
+   }
 }
