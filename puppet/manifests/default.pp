@@ -3,7 +3,7 @@
 $project_name = "tech-talk"
 
     include packageUpdate
-    include basePackageInstall
+    include baseInstall
     include gnomeInstall
     include afterInstall
     include ssh
@@ -20,13 +20,22 @@ class packageUpdate
    }
 }
 
-class basePackageInstall
+class baseInstall
 {
 	$packages = ['kernel-debug', 'gcc']
 	package{
 		$packages:
 		ensure => latest
 	}
+
+	#Example file sync
+	file {
+   		'/home/vagrant/.bashrc':
+      		owner => 'vagrant',
+      		group => 'vagrant',
+      		mode  => '0644',
+      		source => '/vagrant/puppet/files/.bashrc';
+  	}
 }
 
 class gnomeInstall
