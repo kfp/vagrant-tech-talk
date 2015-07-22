@@ -55,7 +55,7 @@ class afterInstall
 
 class ssh
 {
-   service { "ssh":        
+   service { "sshd":        
       ensure => "running",
       enable => "true"
    }
