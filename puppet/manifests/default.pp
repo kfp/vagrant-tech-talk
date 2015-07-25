@@ -68,4 +68,11 @@ class ssh
       ensure => "running",
       enable => "true"
    }
+	file {
+   		'/etc/gdm/custom.conf':
+      		owner => 'root',
+      		group => 'root',
+      		mode  => '0644',
+      		source => '/vagrant/puppet/files/custom.conf';
+  	}
 }
