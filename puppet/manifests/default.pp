@@ -22,7 +22,7 @@ class packageUpdate
 
 class baseInstall
 {
-	$packages = ['kernel-debug', 'gcc']
+	$packages = ['kernel-debug', 'gcc', 'kernel-devel']
 	package{
 		$packages:
 		ensure => latest
