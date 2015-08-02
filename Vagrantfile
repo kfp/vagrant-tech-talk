@@ -14,6 +14,9 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "box-cutter/fedora22"
 
+  # As of 8/2/15 Pinning to old version for VirtualBox 4.3.28 (Newer Version are VB 5.x)
+  config.vm.box_version="1.0.14"
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
