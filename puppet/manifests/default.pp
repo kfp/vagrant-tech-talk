@@ -3,9 +3,10 @@
 $project_name = "tech-talk"
 
     include packageUpdate
-    include basePackageInstall
+    include baseInstall
     include gnomeInstall
     include afterInstall
+    include ssh
 
 class packageUpdate 
 {
@@ -19,13 +20,22 @@ class packageUpdate
    }
 }
 
-class basePackageInstall
+class baseInstall
 {
-	$packages = ['kernel-debug', 'gcc']
+	$packages = ['kernel-debug', 'gcc', 'kernel-devel']
 	package{
 		$packages:
 		ensure => latest
 	}
+
+	#Example file sync
+	file {
+   		'/home/vagrant/.bashrc':
+      		owner => 'vagrant',
+      		group => 'vagrant',
+      		mode  => '0644',
+      		source => '/vagrant/puppet/files/.bashrc';
+  	}
 }
 
 class gnomeInstall
@@ -50,4 +60,19 @@ class afterInstall
       timeout => 1800,
       user => root
   }
+}
+
+class ssh
+{
+   service { "sshd":        
+      ensure => "running",
+      enable => "true"
+   }
+	file {
+   		'/etc/gdm/custom.conf':
+      		owner => 'root',
+      		group => 'root',
+      		mode  => '0644',
+      		source => '/vagrant/puppet/files/custom.conf';
+  	}
 }
